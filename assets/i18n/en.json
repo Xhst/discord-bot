@@ -1,0 +1,17 @@
+{
+    "commands" : {
+        "utility" : {
+            "ping" : {
+                "description" : "Pings the bot"
+            },
+            "testuser" : {
+                "description" : "Shows information about a user"
+            }
+        }
+    },
+    "activity" : [
+        "Activity 1 🎉",
+        "Activity 2 👽",
+        "Activity 3 🌈"
+    ]
+}
