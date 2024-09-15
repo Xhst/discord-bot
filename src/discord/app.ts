@@ -2,6 +2,7 @@ import { Client, Collection, GatewayIntentBits } from "discord.js";
 import { Command, deployCommands } from "./commands";
 import { ClientWithCommands } from "./client";
 import { readDir } from "../utils";
+import { Event } from "./events";
 import { join } from "path";
 
 
@@ -32,6 +33,8 @@ export class DiscordApp {
         await this.registerCommands();
         await deployCommands();
 
+        await this.registerEvents();
+
         await this.client.login(process.env.DISCORD_TOKEN);
     }
 
@@ -51,5 +54,28 @@ export class DiscordApp {
             this.client.commands.set(command.data.name, command);
         }
     }
-    
+
+    private async registerEvents(): Promise<void> {
+        const eventFiles = readDir(this.eventsPath);
+
+        let eventCount = 0;
+
+        for (const file of eventFiles) {
+
+            // Dynamically import the event module
+            const event: Event = (await import(file)).default;
+
+            // Register the event with the client
+            if (event.once) {
+                this.client.once(event.name, (...args) => event.execute(...args));
+            } else {
+                this.client.on(event.name, (...args) => event.execute(...args));
+            }
+
+            eventCount++;
+        }
+
+        console.log(`Registerd ${eventCount} events.`);
+    }
+
 }
