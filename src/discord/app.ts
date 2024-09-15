@@ -1,6 +1,6 @@
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import { ClientWithCommands } from "./client";
-import { Command } from "./commands";
+import { Command, deployCommands } from "./commands";
 import { join } from "path";
 
 
@@ -28,6 +28,8 @@ export class DiscordApp {
     }
 
     public async start(): Promise<void> {
+        await deployCommands();
+
         await this.client.login(process.env.DISCORD_TOKEN);
     }
 }
