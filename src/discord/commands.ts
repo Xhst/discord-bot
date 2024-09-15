@@ -8,11 +8,17 @@ import {
 import { readDir } from '@utils/directory';
 import { join } from 'path';
 
+export type CommandChoice = {
+    name: string;
+    value: string;
+    option?: string;
+};
+
 export type Command = {
     data: SlashCommandBuilder;
     execute: (interaction: CommandInteraction) => Promise<void>;
+    autocompletions?: string[] | CommandChoice[];
 };
-
 
 export async function deployCommands() {
     const guildIds = process.env.DISCORD_GUILD_IDS?.split(", ") || [];
