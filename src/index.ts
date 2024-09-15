@@ -1,5 +1,5 @@
+import { DiscordApp } from "@discord/app";
 import { Server } from "./server";
-import { DiscordApp } from "./discord/app";
 import { config } from 'dotenv';
 
 config();

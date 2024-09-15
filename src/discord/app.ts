@@ -1,8 +1,8 @@
 import { Client, Collection, GatewayIntentBits } from "discord.js";
-import { Command, deployCommands } from "./commands";
-import { ClientWithCommands } from "./client";
-import { readDir } from "../utils";
-import { Event } from "./events";
+import { Command, deployCommands } from "@discord/commands";
+import { ClientWithCommands } from "@discord/client";
+import { Event } from "@discord/events";
+import { readDir } from "@utils/directory";
 import { join } from "path";
 
 

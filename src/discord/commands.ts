@@ -5,7 +5,7 @@ import {
     SlashCommandBuilder,
     RESTPostAPIChatInputApplicationCommandsJSONBody,    
 } from 'discord.js';
-import { readDir } from '../utils';
+import { readDir } from '@utils/directory';
 import { join } from 'path';
 
 export type Command = {
