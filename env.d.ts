@@ -5,6 +5,7 @@ declare namespace NodeJS {
         DISCORD_APP_ID: string;
         DISCORD_GUILD_IDS: string;
         SERVER_PORT: string;
+        LANGUAGE: string;
 
         ENVRIONMENT: "development" | "production";
     }
