@@ -6,6 +6,8 @@ declare namespace NodeJS {
         DISCORD_GUILD_IDS: string;
         SERVER_PORT: string;
         LANGUAGE: string;
+        
+        BOT_STATUS?: "online" | "idle" | "dnd" | "invisible";
 
         ENVRIONMENT: "development" | "production";
     }

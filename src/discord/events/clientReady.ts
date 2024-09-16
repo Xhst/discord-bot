@@ -13,11 +13,12 @@ const event: Event = {
 
         console.log(`Ready! Logged in as ${client.user.tag}`);
 
-        setupActivity(client);
+        setActivity(client);
+        setStatus(client);
     }
 };
 
-function setupActivity(client: ClientWithCommands): void {
+function setActivity(client: ClientWithCommands): void {
     const randomActivityInterval = 30000;
     const activities = i18n("activity").split(arraySeparator);
 
@@ -31,6 +32,11 @@ function setupActivity(client: ClientWithCommands): void {
 
     randomActivity();
     setInterval(() => randomActivity(), randomActivityInterval);
+}
+
+function setStatus(client: ClientWithCommands): void {
+    // Possible statuses: online, idle, dnd, invisible
+    client.user!.setStatus(process.env.BOT_STATUS || "online");
 }
 
 export default event;
