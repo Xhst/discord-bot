@@ -1,11 +1,15 @@
 {
+    "chat-input-command" : {
+        "generic-error" : "There was an error while executing this command!"
+    },
     "commands" : {
         "utility" : {
             "ping" : {
                 "description" : "Pings the bot"
             },
             "testuser" : {
-                "description" : "Shows information about a user"
+                "description" : "Shows information about a user",
+                "response" : "Name: ${0} | Id: ${1}"
             }
         }
     },

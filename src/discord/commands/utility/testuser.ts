@@ -8,9 +8,11 @@ const command: Command = {
     .setDescription(i18n("commands.utility.testuser.description")),
 
   async execute(interaction: CommandInteraction): Promise<void> {
-    await interaction.reply(
-        `${interaction.user.username} ${interaction.user.id}`,
-    )},
+    await interaction.reply(i18n("commands.utility.testuser.response", 
+        interaction.user.username, 
+        interaction.user.id
+      ));
+  },
 };
 
 export default command;
