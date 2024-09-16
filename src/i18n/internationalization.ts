@@ -40,12 +40,28 @@ const translations: { [lang: string]: { [K in LanguageKey]: JsonLeaf } } = {
     en: flattenJSON(en),
 };
 
-export function i18n(key: LanguageKey, language?: string): string {
-    if (!language) language = getLanguage();
-
+export function getTag(key: LanguageKey, language: string) {
     return translations[language.toLocaleLowerCase()][key]?.toString() 
         || translations['en'][key]?.toString() 
         || key;
+}
+
+export function i18n(key: LanguageKey, ...args: Array<string | number>): string {
+    const language = getLanguage();
+
+    const tag = getTag(key, language);
+
+    try {
+        return tag.replace(/\$\{(\d+)\}/g, (match, index) => {
+            const idx = parseInt(index);
+
+            return args[idx] !== undefined ? String(args[idx]) : match;
+        });
+    } catch (error) {
+        console.error(`Error while formatting i18n tag: ${tag}`);
+
+        return tag;
+    }
 }
 
 export function getLanguage(): string {
