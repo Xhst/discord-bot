@@ -6,18 +6,33 @@ const translations: { [lang: string]: { [K in LanguageKey]: JsonLeaf } } = {
     en: flattenJSON(en),
 };
 
+/**
+ * Get the translation for the given key in the current language.
+ * 
+ * @param key the flattened key in the JSON language file
+ * @param language the language to get the translation for
+ * @returns the value of the translation for the given key in the current language
+ */
 export function getTag(key: LanguageKey, language: string) {
     return translations[language.toLocaleLowerCase()][key]?.toString() 
         || translations['en'][key]?.toString() 
         || key;
 }
 
+/**
+ * Get the translation for the given key in the current language and, if arguments are provided, format it with them.
+ * 
+ * @param key the flattened key in the JSON language file
+ * @param args optional arguments to format the translation
+ * @returns the translation for the given key in the current language
+ */
 export function i18n(key: LanguageKey, ...args: Array<string | number>): string {
     const language = getLanguage();
 
     const tag = getTag(key, language);
 
     try {
+        // Replace placeholders (`${0}`, `${1}`, ... , `${n}`) with the corresponding arguments
         return tag.replace(/\$\{(\d+)\}/g, (match, index) => {
             const idx = parseInt(index);
 
@@ -34,6 +49,14 @@ export function getLanguage(): string {
     return process.env.LANGUAGE || 'en';
 }
 
+/**
+ * Flatten a JSON object to a single level object.
+ * 
+ * @param data the JSON object to flatten
+ * @param parentKey the parent key of the current object
+ * @param result the result object
+ * @returns the flattened JSON object
+ */
 function flattenJSON(data: any, parentKey = '', result: { [key: string]: JsonLeaf } = {}): { [K in LanguageKey]: JsonLeaf } {
     for (const key in data) {
         if (data.hasOwnProperty(key)) {
