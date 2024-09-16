@@ -49,19 +49,16 @@ async function tryExecuteAutocomplete(client: ClientWithCommands, interaction: B
 
     const command = client.commands.get(interaction.commandName);
 
-    if (command === undefined) return;
+    if (!command || !command.autocompletions) return;
     
     const focusedOption = interaction.options.getFocused(true);
 
-    const choices = command.autocompletions ?? [];
-
     // Filter the choices based on the focused option
-    const filteredChoices = choices.filter((choice) => {
+    const filteredChoices = command.autocompletions.filter((choice) => {
         const value = typeof choice === "string" ? choice : choice.value;
 
-        if (typeof choice === "string" || (choice.option && choice.option === focusedOption.name)) {
-            return value.toLowerCase().includes(focusedOption.value.toLowerCase());
-        }
+        return (typeof choice === "string" || (choice.option && choice.option === focusedOption.name))
+                && value.toLowerCase().includes(focusedOption.value.toLowerCase());
     });
 
     // Convert the choices to the format that Discord expects
