@@ -1,5 +1,6 @@
 import { BaseInteraction, Events } from "discord.js";
 import { ClientWithCommands } from "@discord/client";
+import { i18n } from "@i18n/internationalization";
 
 const event = {
     name: Events.InteractionCreate,
@@ -31,12 +32,12 @@ async function tryExecuteChatInputCommand(client: ClientWithCommands, interactio
 
         if (interaction.replied || interaction.deferred) {
             await interaction.followUp({
-                content: "There was an error while executing this command!",
+                content: i18n("chat-input-command.generic-error"),
                 ephemeral: true,
             });
         } else {
             await interaction.reply({
-                content: "There was an error while executing this command!",
+                content: i18n("chat-input-command.generic-error"),
                 ephemeral: true,
             });
         }
