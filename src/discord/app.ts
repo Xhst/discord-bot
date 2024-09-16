@@ -29,6 +29,9 @@ export class DiscordApp {
         this.client.commands = new Collection<string, Command>();
     }
 
+    /**
+     * Start the Discord bot: register commands and events, and login to Discord.
+     */
     public async start(): Promise<void> {
         await this.registerCommands();
         await deployCommands();
@@ -38,6 +41,9 @@ export class DiscordApp {
         await this.client.login(process.env.DISCORD_TOKEN);
     }
 
+    /**
+     * Register all commands in the commands directory.
+     */
     private async registerCommands(): Promise<void> {
         const commandFiles = readDir(this.commandsPath);
 
@@ -55,6 +61,9 @@ export class DiscordApp {
         }
     }
 
+    /**
+     * Register all events in the events directory.
+     */
     private async registerEvents(): Promise<void> {
         const eventFiles = readDir(this.eventsPath);
 
