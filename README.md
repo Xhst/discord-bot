@@ -63,7 +63,7 @@ The bot supports multiple languages. Language files are located in the [`assets/
 To add a new language:
 1. Create a new JSON file in the `assets/i18n` directory with the language code as the filename (e.g., `it.json` for Italian).
 2. Add the necessary translations to the JSON file.
-3. Imports the JSON and add the language to the translations map in [`interationalization`](src/18n/interationalization.ts).
+3. Imports the JSON and add the language to the translations map in [`interationalization`](src/i18n/internationalization.ts).
 4. Update the `LANGUAGE` variable in the `.env` file to the desired language code.
 
 By default each JSON language file follows the structure of the `en.json` file, you can change this behaviour by updating the type `LanguageKey`:
